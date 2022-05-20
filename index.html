@@ -1,0 +1,25 @@
+<script>
+    // ratio 缓动系数
+    // fixed:0 浏览器滚动
+    // fixed:1 JS滚动
+    init_scroll(elm, ratio, fixed)
+
+    // limit:0 不限制
+    // limit:1 限制到中心点
+    // friction: 摩擦系数
+    Als_parallax(elm, limit, friction_y, friction_x)
+
+    // limit:1 限制到父级容器范围内
+    Als_sticky(elm, limit, friction_y, friction_x)
+
+    // 在Als_sticky元素的内部元素
+    Als_sticky_child(elm, limit)
+
+    // offset: 偏移中心点的距离
+    Als_reach(elm, offset_y, offset_x)
+
+    // limit: 0 无限制
+    // limit: 1 限制到父级容器范围内
+    // limit: "数值" 限制到数值"px"范围内
+    Als_mouse(elm, limit, friction_y, friction_x)
+</script>
