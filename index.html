@@ -7,6 +7,9 @@
     // fixed:1 JS滚动
     init_scroll(elm, ratio, fixed)
 
+    // update 3.3.2 智能元素滚动(根容器下一级子元素)
+    Als_split(elm)
+
     // limit:0 不限制
     // limit:1 限制到中心点
     // friction: 摩擦系数
@@ -26,3 +29,53 @@
     // limit: "数值" 限制到数值"px"范围内
     Als_mouse(elm, limit, friction_y, friction_x)
 </script>
+
+<style>
+    /* init_scroll */
+    .Scroll-wrapper {
+        height: 100vh;
+        overflow: auto;
+        transform: translate3d(0px, calc(var(--scroll-yy)*-1px), 0px);
+    }
+
+    /* Als_split */
+    .elm-split {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        transform: translate3d(0px, calc(var(--scroll-spl-y)*1px), 0px);
+    }
+
+    /* Als_parallax */
+    .elm-parallax {
+        transform: translate3d(calc(var(--center-x-friction)*0.1px), calc(var(--center-y-friction)*0.1px), 0px);
+    }
+
+    /* Als_sticky */
+    .elm-sticky.skt-0 {
+        position: relative;
+        transform: translate3d(calc(var(--stick-x)*1px), calc((0 - var(--stick-y))*1px), 0px);
+    }
+
+    .elm-sticky.skt-1 {
+        position: relative;
+        transform: translate3d(calc((0 - var(--stick-x-friction))*1px), calc((0 - var(--stick-y))*1px), 0px);
+    }
+
+    .elm-sticky-c.skt-2 {
+        position: relative;
+        transform: translate3d(calc(var(--stick-x-friction)*1px), calc((0 - var(--stick-y))*1px), 0px);
+    }
+
+    /* Als_sticky_child */
+    .elm-sticky-child {
+        transform: translate3d(calc((var(--sc-center-x) - var(--stick-x-friction))*0.25px), 0px, 0px);
+    }
+
+    /* Als_mouse */
+    .elm-mouse>div {
+        position: relative;
+        transform: translate3d(calc(var(--mouse-x-friction)*1px), calc(var(--mouse-y-friction)*1px), 0px);
+    }
+</style>
