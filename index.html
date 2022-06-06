@@ -1,34 +1,7 @@
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <!-- 使用smooth-scrollbar -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.7.4/smooth-scrollbar.min.js"></script>
-
-<script>
-    // ratio 缓动系数
-    // fixed:0 浏览器滚动
-    // fixed:1 JS滚动
-    init_scroll(elm, ratio, fixed)
-
-    // update 3.3.2 智能元素滚动(根容器下一级子元素)
-    Als_split(elm)
-
-    // limit:0 不限制
-    // limit:1 限制到中心点
-    // friction: 摩擦系数
-    Als_parallax(elm, limit, friction_y, friction_x)
-
-    // limit:1 限制到父级容器范围内
-    Als_sticky(elm, limit, friction_y, friction_x)
-
-    // 在Als_sticky元素的内部元素
-    Als_sticky_child(elm, limit)
-
-    // offset: 偏移中心点的距离
-    Als_reach(elm, offset_y, offset_x)
-
-    // limit: 0 无限制
-    // limit: 1 限制到父级容器范围内
-    // limit: "数值" 限制到数值"px"范围内
-    Als_mouse(elm, limit, friction_y, friction_x)
-</script>
 
 <style>
     /* init_scroll */
@@ -37,7 +10,91 @@
         overflow: auto;
         transform: translate3d(0px, calc(var(--scroll-yy)*-1px), 0px);
     }
+</style>
 
+<script>
+    // ratio 缓动系数
+    // fixed:0 浏览器滚动
+    // fixed:1 JS滚动
+    init_scroll(elm, ratio, fixed)
+
+    // set_var 1：用css var输出，0：用data输出
+
+    // update 3.3.2 智能元素滚动(根容器下一级子元素)
+    Als_split(elm, set_var)
+
+    // limit:0 不限制
+    // limit:1 限制到中心点
+    // friction: 摩擦系数
+    Als_parallax(elm, limit, friction_y, friction_x, set_var)
+
+    // limit:1 限制到父级容器范围内
+    Als_sticky(elm, limit, friction_y, friction_x, set_var)
+
+    // 在Als_sticky元素的内部元素
+    Als_sticky_child(elm, limit, set_var)
+
+    // offset: 偏移中心点的距离
+    Als_reach(elm, offset_y, offset_x, set_var)
+
+    // limit: 0 无限制
+    // limit: 1 限制到父级容器范围内
+    // limit: "数值" 限制到数值"px"范围内
+    Als_mouse(elm, limit, friction_y, friction_x, set_var)
+</script>
+
+<!-- data输出时 JQ控制样式-->
+<script>
+    function run_Als_parallax() {
+        $('.test-parallax').each(function () {
+            let $this = $(this);
+            $this.css('transform', `translate3d(10px, ${$this.attr('data-fy') * 0.1}px, 0px)`)
+        })
+    }
+    function run_Als_sticky() {
+        $('.test-sticky.skt-0').each(function () {
+            let $this = $(this);
+            $this.css('transform', `translate3d(${$this.attr('data-xx') * 1}px, ${$this.attr('data-yy') * -1}px, 0px)`)
+        })
+        $('.test-sticky.skt-1').each(function () {
+            let $this = $(this);
+            $this.css('transform', `translate3d(${$this.attr('data-fx') * -1}px, ${$this.attr('data-yy') * -1}px, 0px)`)
+        })
+        $('.test-sticky-c.skt-2').each(function () {
+            let $this = $(this);
+            $this.css('transform', `translate3d(${$this.attr('data-fx') * 1}px, ${$this.attr('data-yy') * -1}px, 0px)`)
+        })
+        $('.skyye').each(function () {
+            let $this = $(this);
+            let $parent = $this.parents('.sticky-elm');
+            $this.css('transform', `translate3d(${$this.attr('data-xx') * 0.2 + $parent.attr('data-fx') * 0.2}px, 0px, 0px)`)
+        })
+    }
+    function run_Als_mouse() {
+        $('.mous-0>div').each(function () {
+            let $this = $(this);
+            $this.css('transform', `translate3d(${$this.attr('data-mxx') * 1}px, ${$this.attr('data-myy') * 1}px, 0px)`)
+        })
+        $('.mous-1>div').each(function () {
+            let $this = $(this);
+            $this.css('transform', `translate3d(${$this.attr('data-mxx') * 1}px, ${$this.attr('data-myy') * 1}px, 0px)`)
+        })
+        $('.mous-2>div').each(function () {
+            let $this = $(this);
+            $this.css('transform', `translate3d(${$this.attr('data-mxx') * 1}px, ${$this.attr('data-myy') * 1}px, 0px)`)
+        })
+    }
+    function run_scroll_elms() {
+        run_Als_parallax();
+        run_Als_sticky();
+        run_Als_mouse();
+        requestAnimationFrame(run_scroll_elms)
+    }
+    run_scroll_elms()
+</script>
+
+<!-- var输出时 -->
+<style>
     /* Als_split */
     .elm-split {
         position: fixed;
