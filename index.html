@@ -21,7 +21,8 @@
     // set_var 1：用css var输出，0：用data输出
 
     // update 3.3.2 智能元素滚动(根容器下一级子元素)
-    Als_split(elm, set_var)
+    // leng_h 视点范围的offset
+    Als_split(elm, set_var, leng_h)
 
     // limit:0 不限制
     // limit:1 限制到中心点
@@ -45,6 +46,12 @@
 
 <!-- data输出时 JQ控制样式-->
 <script>
+    function run_Als_split() {
+        $('.elm-split').each(function () {
+            let $this = $(this);
+            $this.css('transform', `perspective(1000px) translate3d(0px, ${$this.attr('data-spl_yy') * 1}px, 0px)`)
+        })
+    }
     function run_Als_parallax() {
         $('.test-parallax').each(function () {
             let $this = $(this);
@@ -85,6 +92,7 @@
         })
     }
     function run_scroll_elms() {
+        run_Als_split()
         run_Als_parallax();
         run_Als_sticky();
         run_Als_mouse();
