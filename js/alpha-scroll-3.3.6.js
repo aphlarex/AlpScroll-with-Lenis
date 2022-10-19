@@ -721,6 +721,9 @@ function Als_parallax_data_update() {
     als.parallax_data[i].left = getElementLeft(als.parallax_data[i].elm);
     als.parallax_data[i].height = als.parallax_data[i].elm.clientHeight;
     als.parallax_data[i].width = als.parallax_data[i].elm.clientWidth;
+    //
+    als.parallax_data[i].elm.dataset.of_top = als.parallax_data[i].top;
+    als.parallax_data[i].elm.dataset.of_left = als.parallax_data[i].left;
   }
 }
 function Als_sticky_data_update() {
@@ -737,6 +740,9 @@ function Als_sticky_data_update() {
       als.sticky_data[i].parent_height = als.sticky_data[i].width;
       als.sticky_data[i].elm.parentElement.style.setProperty("height", `${als.sticky_data[i].parent_height}px`);
     }
+    //
+    als.sticky_data[i].elm.dataset.of_top = als.sticky_data[i].top;
+    als.sticky_data[i].elm.dataset.of_left = als.sticky_data[i].left;
   }
 }
 function Als_sticky_child_data_update() {
@@ -745,6 +751,9 @@ function Als_sticky_child_data_update() {
     als.sticky_child_data[i].left = getElementLeft(als.sticky_child_data[i].elm);
     als.sticky_child_data[i].height = als.sticky_child_data[i].elm.clientHeight;
     als.sticky_child_data[i].width = als.sticky_child_data[i].elm.clientWidth;
+    //
+    als.sticky_child_data[i].elm.dataset.of_top = als.sticky_child_data[i].top;
+    als.sticky_child_data[i].elm.dataset.of_left = als.sticky_child_data[i].left;
   }
 }
 function Als_reach_data_update() {
@@ -753,6 +762,9 @@ function Als_reach_data_update() {
     als.reach_data[i].left = getElementLeft(als.reach_data[i].elm);
     als.reach_data[i].height = als.reach_data[i].elm.clientHeight;
     als.reach_data[i].width = als.reach_data[i].elm.clientWidth;
+    //
+    als.reach_data[i].elm.dataset.of_top = als.reach_data[i].top;
+    als.reach_data[i].elm.dataset.of_left = als.reach_data[i].left;
   }
 }
 function Als_mouse_data_update() {
