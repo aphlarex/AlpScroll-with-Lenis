@@ -1,0 +1,170 @@
+body {
+  background-color: #f1f1f1;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+  margin: 0;
+}
+.Scroll-element > div {
+  width: 100%;
+  min-height: 500px;
+  position: relative;
+  background: #79a2b6;
+}
+.Scroll-element > div:nth-child(even) {
+  background: #79b696;
+}
+.Scroll-element .palallax-elm {
+  background: #a279b6;
+  width: 500px;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+}
+.Scroll-element .sticky-elm {
+  background: #bcb56d;
+  width: 100%;
+  height: 400px;
+}
+.Scroll-element .sticky-wrap {
+  background: #bcb56d;
+  width: 200%;
+  height: 400px;
+}
+.Scroll-element .sticky-wrap-child {
+  background: #bc6d6d;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mouse-1 {
+  background: #5ce3d8;
+  border-radius: 1000px;
+}
+
+.mouse-1.mos-1 {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  text-align: center;
+}
+.mouse-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mouse-wrap .mouse-1 {
+  width: 80px;
+  height: 80px;
+}
+.mouse-1.mos-2 {
+  background: #7c00ba;
+}
+.mouse-1.mos-3 {
+  background: #0016ba;
+}
+.desc {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1em;
+  text-transform: capitalize;
+  color: #fff;
+}
+.palallax-wrap {
+  height: 100vh;
+  position: relative;
+}
+.palallax-elm.par-3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.sticky-elm-wrapper {
+  min-height: 100vh;
+}
+.sticky-wrap-parent {
+  top: 0;
+  overflow: hidden;
+  display: flex;
+}
+.sticky-elm.sticky-element {
+  top: 0;
+}
+.Scroll-element .sticky-wrap.sticky-2.sticky-element {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  padding: 0 50vw;
+  width: auto;
+  background: #000;
+}
+.sticky-3.sticky-element > .sticky-fixed-wrapper {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  padding: 0 50vw;
+  width: auto;
+  background: #330404;
+  position: relative;
+  height: 430px;
+}
+.sticky-wrap-child {
+  position: relative;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.sticky-wrap-child > span {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 25%;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  background: #00ffac;
+}
+.sticky-elm.sticky-1.sticky-element {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sticky-note {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  max-width: 420px;
+  color: #fff;
+  text-transform: capitalize;
+  padding: 1em 10vw;
+}
+.sticky-wrap.sticky-3.sticky-element {
+  position: relative;
+}
+.sticky-wrap-parent-2 {
+  display: flex;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}

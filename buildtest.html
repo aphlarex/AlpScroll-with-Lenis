@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.12.0/headroom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
+    <style>
+        body {
+            background-color: #f1f1f1;
+            font-family: "Poppins", sans-serif;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .Scroll-element>div {
+            width: 100%;
+            min-height: 500px;
+            position: relative;
+            background: #79a2b6;
+        }
+
+        .Scroll-element>div:nth-child(even) {
+            background: #79b696;
+        }
+
+        .Scroll-element .palallax-elm {
+            background: #a279b6;
+            width: 500px;
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+        }
+
+        .Scroll-element .sticky-elm {
+            background: #bcb56d;
+            width: 100%;
+            height: 400px;
+        }
+
+        .Scroll-element .sticky-wrap {
+            background: #bcb56d;
+            width: 200%;
+            height: 400px;
+        }
+
+        .Scroll-element .sticky-wrap-child {
+            background: #bc6d6d;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mouse-1 {
+            background: #5ce3d8;
+            border-radius: 1000px;
+        }
+
+        .mouse-1.mos-1 {
+            position: fixed;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .mouse-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mouse-wrap .mouse-1 {
+            width: 80px;
+            height: 80px;
+        }
+
+        .mouse-1.mos-2 {
+            background: #7c00ba;
+        }
+
+        .mouse-1.mos-3 {
+            background: #0016ba;
+        }
+
+        .desc {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 1em;
+            text-transform: capitalize;
+            color: #fff;
+        }
+
+        .palallax-wrap {
+            height: 100vh;
+            position: relative;
+        }
+
+        .palallax-elm.par-3 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .sticky-elm-wrapper {
+            min-height: 100vh;
+        }
+
+        .sticky-wrap-parent {
+            top: 0;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .sticky-elm.sticky-element {
+            top: 0;
+        }
+
+        .Scroll-element .sticky-wrap.sticky-2.sticky-element {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            padding: 0 50vw;
+            width: auto;
+            background: #000;
+        }
+
+        .sticky-3.sticky-element>.sticky-fixed-wrapper {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            padding: 0 50vw;
+            width: auto;
+            background: #330404;
+            position: relative;
+            height: 430px;
+        }
+
+        .sticky-wrap-child {
+            position: relative;
+            text-transform: capitalize;
+            color: #fff;
+        }
+
+        .sticky-wrap-child>span {
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 25%;
+            width: 10px;
+            height: 10px;
+            margin: auto;
+            background: #00ffac;
+        }
+
+        .sticky-elm.sticky-1.sticky-element {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sticky-note {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            max-width: 420px;
+            color: #fff;
+            text-transform: capitalize;
+            padding: 1em 10vw;
+        }
+
+        .sticky-wrap.sticky-3.sticky-element {
+            position: relative;
+        }
+
+        .sticky-wrap-parent-2 {
+            display: flex;
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .sticky-element[fixed-sticky][data-stickin="1"]>[fixed-sticky-el] {
+            position: fixed !important;
+            left: 0;
+            top: 0;
+            z-index: 10;
+        }
+
+        .sticky-element[fixed-sticky][data-stickout="1"] {
+            transform: translate3d(0, calc((var(--st_parent_height) - var(--st_height) - var(--st_top)) * 1px), 0);
+        }
+
+        .Alpscroll [css3-sticky] {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mouse-1 mos-1"></div>
+    <div class="Scroll-element">
+        <div class="mouse-wrap">
+            <div class="desc">mouse move limit in container</div>
+            <div class="mouse-1 mos-2"></div>
+        </div>
+        <div class="mouse-wrap">
+            <div class="desc">mouse move limit in '300px'</div>
+            <div class="mouse-1 mos-3"></div>
+        </div>
+        <div>
+            <div class="palallax-wrap">
+                <div class="palallax-elm par-1">parallax limit:0</div>
+            </div>
+        </div>
+        <div>
+            <div class="palallax-wrap">
+                <div class="palallax-elm par-2">parallax limit:1</div>
+            </div>
+        </div>
+        <div>
+            <div class="palallax-wrap">
+                <div class="palallax-elm par-3">parallax limit:2</div>
+            </div>
+        </div>
+
+        <div>
+            <div class="sticky-elm-wrapper">
+                <div class="sticky-elm sticky-1" css3-sticky>
+                    <div>
+                        sticky width position:sticky<br />
+                        Progress:<span data-raf></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="sticky-elm-wrapper">
+                <div class="sticky-wrap-parent" css3-sticky>
+                    <div class="sticky-wrap sticky-2">
+                        <div class="sticky-note">
+                            <div>
+                                sticky with position:sticky and horizonal scroll effect<br />
+                                Progress:<span data-raf></span>
+                            </div>
+                        </div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                        <div class="sticky-wrap-child">sticky child<span></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="sticky-elm-wrapper overflow-hidden">
+                <div class="sticky-wrap-parent-2">
+                    <div class="sticky-wrap2 sticky-3" fixed-sticky>
+                        <div class="sticky-fixed-wrapper" fixed-sticky-el>
+                            <div class="sticky-note">
+                                <div>
+                                    sticky with position:Fixed and horizonal scroll effect<br />
+                                    Progress:<span data-raf></span>
+                                </div>
+                            </div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                            <div class="sticky-wrap-child">sticky child<span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script type="module">
+        import { Alpscroll } from './Alpscroll.js'
+        let alp = new Alpscroll();
+        // init(lerp, duration, infinite, smoothTouch, wrapper)
+        alp.init(0.1, 1, false, false, "body");
+        // parallax(elm, limit, friction_y, friction_x)
+        alp.parallax(".par-1", 0, 0.1, 0.1);
+        alp.parallax(".par-2", 1, 0.1, 0.1);
+        alp.parallax(".par-3", 2, 0.1, 0.1);
+        // sticky(elm, limit, friction_y, friction_x, parent_elm)
+        alp.sticky(".sticky-1", 1, 0.1, 0.1);
+        alp.sticky(".sticky-2", 1, 0.1, 0.1, ".sticky-elm-wrapper");
+        alp.sticky(".sticky-3", 1, 0.1, 0.1, ".sticky-elm-wrapper");
+        // sticky_child(elm, limit)
+        alp.sticky_child(".sticky-wrap-child", 0);
+        // reach(elm, offset_y, offset_x)
+        alp.reach(".Scroll-element > div", 0, 0);
+        // mouse(elm, limit, friction_y, friction_x, outside)
+        alp.mouse(".mos-1", 0, 0.1, 0.1, 1);
+        alp.mouse(".mos-2", 1, 0.1, 0.1, 0);
+        alp.mouse(".mos-3", "300", 0.1, 0.1, 0);
+        // log
+
+        alp.lenis.on("scroll", (e) => { });
+
+        // pre set fixed style for sticky elm
+        function PreSet() { }
+
+        let updataRafAnim = "";
+        function rafAnimation() {
+            // Parallax effect
+            $(".par-1").each(function () {
+                let $this = $(this);
+                $this.css("transform", `translate3d(0px, ${$this.attr("data-pl_y") * -0.5}px, 0px)`);
+            });
+            $(".par-2").each(function () {
+                let $this = $(this);
+                $this.css("transform", `translate3d(0px, ${$this.attr("data-pl_y") * 0.3}px, 0px)`);
+            });
+            $(".par-3").each(function () {
+                let $this = $(this);
+                $this.css("transform", `translate3d(0px, ${$this.attr("data-pl_y") * 0.3}px, 0px)`);
+            });
+
+            // Sticky effect
+            $(".sticky-1").each(function () {
+                let $this = $(this);
+                // Sticky note
+                $this.find("[data-raf]").text($this.attr("data-st_pg"));
+            });
+            $(".sticky-2").each(function () {
+                let $this = $(this);
+                $this.css("transform", `translate3d(${$this.attr("data-st_xm") * 1}px, 0px, 0px)`);
+                // Sticky note
+                $this.find("[data-raf]").text($this.attr("data-st_pg"));
+                $this.find(".sticky-note").css("transform", `translate3d(${$this.attr("data-st_xm") * -0.96}px, 0px, 0px)`);
+            });
+            // Sticky elm's Children Parallax effect
+            $(".sticky-2 .sticky-wrap-child").each(function () {
+                let $this = $(this);
+                let $parent = $this.parent();
+                $this.find("span").css("transform", `translate3d(${(parseFloat($this.attr("data-stc_x")) + parseFloat($parent.attr("data-st_xm"))) * 0.1}px, 0px, 0px)`);
+            });
+
+            // Sticky with Fixed style
+            $(".sticky-3").each(function () {
+                let $this = $(this);
+                let $child = $this.children();
+                $child.css("transform", `translate3d(${$this.attr("data-st_xm") * 1}px, 0px, 0px)`);
+                // Sticky note
+                $this.find("[data-raf]").text($this.attr("data-st_pg"));
+                $this.find(".sticky-note").css("transform", `translate3d(${$this.attr("data-st_xm") * -0.96}px, 0px, 0px)`);
+            });
+            // Sticky elm's Children Parallax effect
+            $(".sticky-3 .sticky-wrap-child").each(function () {
+                let $this = $(this);
+                let $parent = $this.parents(".sticky-element");
+                $this.find("span").css("transform", `translate3d(${(parseFloat($this.attr("data-stc_x")) + parseFloat($parent.attr("data-st_xm"))) * 0.1}px, 0px, 0px)`);
+            });
+
+            // Mouse effect
+            $(".mos-1").each(function () {
+                let $this = $(this);
+                $this.css("transform", `translate3d(${$this.attr("data-mxx") * 1}px, ${$this.attr("data-myy") * 1}px, 0px)`);
+            });
+            $(".mos-2").each(function () {
+                let $this = $(this);
+                $this.css("transform", `translate3d(${$this.attr("data-mxx") * 1}px, ${$this.attr("data-myy") * 1}px, 0px)`);
+            });
+            $(".mos-3").each(function () {
+                let $this = $(this);
+                $this.css("transform", `translate3d(${$this.attr("data-mxx") * 1}px, ${$this.attr("data-myy") * 1}px, 0px)`);
+            });
+            updataRafAnim = requestAnimationFrame(rafAnimation);
+        }
+
+        window.addEventListener("load", () => {
+            PreSet();
+            updataRafAnim = requestAnimationFrame(rafAnimation);
+            console.log(alp);
+        });
+    </script>
+</body>
+
+</html>
