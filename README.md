@@ -16,7 +16,7 @@ Example Setup:
 Init
 
 ```js
-let alp = new Alpscroll();
+const alp = new Alpscroll();
 // init(lerp, duration, infinite, smoothTouch, wrapper)
 alp.init(0.1, 1, false, false, "body");
 ```
@@ -76,7 +76,7 @@ alp.mouse(".mouse-point", 0, 0.1, 0.1, 0);
 Example:
 
 ```js
-let updataRafAnim = "";
+const updataRafAnim = "";
 function updateAnim() {
   rafAnimation();
   updataRafAnim = requestAnimationFrame(updateAnim);
