@@ -12,26 +12,62 @@ import { Alpscroll } from "/dist/Alpscroll.js";
 
 Example Setup:
 
+Init
+
 ```js
 let alp = new Alpscroll();
 // init(lerp, duration, infinite, smoothTouch, wrapper)
 alp.init(0.1, 1, false, false, "body");
+```
+
+Parallax
+
+```js
 // parallax(elm, limit, friction_y, friction_x)
-alp.parallax(".par-1", 0, 0.1, 0.1);
-alp.parallax(".par-2", 1, 0.1, 0.1);
-alp.parallax(".par-3", 2, 0.1, 0.1);
+// limit:0 | no limit scroll
+// limit:1 | scroll bottom to center
+// limit:2 | scroll center to top
+alp.parallax(".parallax-el", 0, 0.1, 0.1);
+```
+
+Sticky
+
+```js
 // sticky(elm, limit, friction_y, friction_x, parent_elm)
-alp.sticky(".sticky-1", 1, 0.1, 0.1);
-alp.sticky(".sticky-2", 1, 0.1, 0.1, ".sticky-elm-wrapper");
-alp.sticky(".sticky-3", 1, 0.1, 0.1, ".sticky-elm-wrapper");
-// sticky_child(elm, limit)
-alp.sticky_child(".sticky-wrap-child", 0);
+// limit:0 | no limit scroll
+// limit:1 | limited to parent container
+// parent_elm | if null Default nearest parent element
+alp.sticky(".sticky-el", 1, 0.1, 0.1, ".sticky-el-wrapper");
+```
+
+Sticky
+
+```js
+// sticky_child(elm)
+// Allows child elements to parallax scroll within the parent Sticky element
+alp.sticky_child(".sticky-el-children");
+```
+
+Reach
+
+```js
 // reach(elm, offset_y, offset_x)
-alp.reach(".Scroll-element > div", 0, 0);
+// trigger element while it in the center viewport
+// offset_y: num*window.innerHeight/2 | For example 0.5
+// offset_x: num*window.innerWidth/2 | For example 0.5
+alp.reach(".el", 0, 0);
+```
+
+Mouse
+
+```js
 // mouse(elm, limit, friction_y, friction_x, outside)
-alp.mouse(".mos-1", 0, 0.1, 0.1, 1);
-alp.mouse(".mos-2", 1, 0.1, 0.1, 0);
-alp.mouse(".mos-3", "300", 0.1, 0.1, 0);
+// limit:0 | no limit movement
+// limit:1 | limited to parent container
+// limit:'300' | limited to 300px range
+// outside: 0 | outside the scroll container
+// outside: 1 | inside the scroll container
+alp.mouse(".mouse-point", 0, 0.1, 0.1, 0);
 ```
 
 ## Loop the Animation
