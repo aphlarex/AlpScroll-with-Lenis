@@ -1,6 +1,7 @@
 ## Introduction
 
-This is smooth scroll with [Lenis](https://github.com/studio-freight/lenis)
+This is smooth scroll with [Lenis](https://github.com/studio-freight/lenis) <br/>
+Exposed data on elements for more actionable animations
 
 ## Installing
 
