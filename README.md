@@ -80,6 +80,7 @@ function updateAnim() {
   rafAnimation();
   updataRafAnim = requestAnimationFrame(updateAnim);
 }
+
 function rafAnimation() {
   // Parallax effect
   $(".parallax-el").each(function () {
@@ -140,7 +141,6 @@ html.lenis {
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
-
 .sticky-element[fixed-sticky][data-stickin="1"] > [fixed-sticky-el] {
   position: fixed !important;
   left: 0;
