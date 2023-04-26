@@ -13,6 +13,33 @@ import { Alpscroll } from "/dist/Alpscroll.js";
 
 Example Setup:
 
+```js
+//if vue in App.vue
+let app_state = ref(false);
+let alp = new Alpscroll();
+provide("AlpScroll", alp);
+provide("State", app_state);
+// vue use after onMounted
+onMounted(() => {
+  // init scroll
+  alp.init(0.1, 1, false, false, "body");
+  // set app state
+  app_state.value = true;
+});
+// vue beforeEach ClearData
+router.beforeEach((to, from, next) => {
+  alp.ClearData();
+  app_state.value = false;
+});
+// vue afterEach RePushData
+router.afterEach((to, from) => {
+  if (app_state.value == false) {
+    alp.RePushData();
+    app_state.value = true;
+  }
+});
+```
+
 Init
 
 ```js
@@ -115,6 +142,10 @@ function rafAnimation() {
 window.addEventListener("load", () => {
   updataRafAnim = requestAnimationFrame(updateAnim);
 });
+
+// vue use after onMounted
+onMounted(() => {});
+
 ```
 
 ## Some HTML Preset
