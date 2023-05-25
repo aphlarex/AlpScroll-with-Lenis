@@ -128,8 +128,10 @@ export const Alpscroll = class Alpscroll {
   // 获取鼠标位置
   getMousePosition() {
     document.addEventListener("mousemove", (e) => {
-      this.data.page_x = e.pageX - document.querySelector(this.data.wrapper).parentElement.scrollLeft;
-      this.data.page_y = e.pageY - document.querySelector(this.data.wrapper).parentElement.scrollTop;
+      // this.data.page_x = e.pageX - document.querySelector(this.data.wrapper).parentElement.scrollLeft;
+      // this.data.page_y = e.pageY - document.querySelector(this.data.wrapper).parentElement.scrollTop;
+      this.data.page_x = e.pageX;
+      this.data.page_y = e.pageY;
     });
   }
   // 获取元素到顶部的距离

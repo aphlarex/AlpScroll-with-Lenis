@@ -168,3 +168,6 @@ body {
 .overflow-hidden {
   overflow: hidden;
 }
+.mouse-1.mos-1 {
+  pointer-events: none;
+}
