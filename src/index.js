@@ -28,16 +28,6 @@ export const Alpscroll = class Alpscroll {
       scroll_width: 0,
       page_x: 0,
       page_y: 0,
-      // parallax: [],
-      // parallax_data: [],
-      // sticky: [],
-      // sticky_data: [],
-      // sticky_child: [],
-      // sticky_child_data: [],
-      // reach: [],
-      // reach_data: [],
-      // mouse: [],
-      // mouse_data: [],
       size_h: 0,
       size_w: 0,
       init: false,
@@ -57,6 +47,9 @@ export const Alpscroll = class Alpscroll {
     };
     this.data.wrapper = Value.wrapper;
     this.lenis = new Lenis({
+      wrapper: document.querySelector(this.data.wrapper).parentElement,
+      content: document.querySelector(this.data.wrapper),
+      wheelEventsTarget: document.querySelector(this.data.wrapper).parentElement,
       smoothWheel: true,
       smoothTouch: Value.smoothTouch,
       touchMultiplier: 3,
@@ -70,7 +63,10 @@ export const Alpscroll = class Alpscroll {
   }
   // Get Size
   getSize() {
-    if (this.data.size_h != document.querySelector(this.data.wrapper).clientHeight || this.data.size_w != document.querySelector(this.data.wrapper).clientWidth) {
+    if (
+      this.data.size_h != document.querySelector(this.data.wrapper).clientHeight ||
+      this.data.size_w != document.querySelector(this.data.wrapper).clientWidth
+    ) {
       this.data.wrapper_height = document.querySelector(this.data.wrapper).parentElement.clientHeight;
       this.data.wrapper_width = document.querySelector(this.data.wrapper).parentElement.clientWidth;
       this.data.scroll_height = document.querySelector(this.data.wrapper).clientHeight;
@@ -281,9 +277,13 @@ export const Alpscroll = class Alpscroll {
       }
       // 缓动计算
       AlpData.parallax_data[i].center_y_friction =
-        Math.round((AlpData.parallax_data[i].center_y_friction + (center_y - AlpData.parallax_data[i].center_y_friction) * AlpData.parallax_data[i].friction_y) * 100) / 100;
+        Math.round(
+          (AlpData.parallax_data[i].center_y_friction + (center_y - AlpData.parallax_data[i].center_y_friction) * AlpData.parallax_data[i].friction_y) * 100
+        ) / 100;
       AlpData.parallax_data[i].center_x_friction =
-        Math.round((AlpData.parallax_data[i].center_x_friction + (center_x - AlpData.parallax_data[i].center_x_friction) * AlpData.parallax_data[i].friction_x) * 100) / 100;
+        Math.round(
+          (AlpData.parallax_data[i].center_x_friction + (center_x - AlpData.parallax_data[i].center_x_friction) * AlpData.parallax_data[i].friction_x) * 100
+        ) / 100;
 
       let progerss_y = 1 - center_y / (this.data.wrapper_height / 2);
       let progerss_x = 1 - center_x / (this.data.wrapper_width / 2);
@@ -413,12 +413,15 @@ export const Alpscroll = class Alpscroll {
         let stick_top = AlpData.sticky_data[i].top - this.data.scroll_y;
         let stick_bottom = AlpData.sticky_data[i].parent_top + AlpData.sticky_data[i].parent_height - this.data.scroll_y;
         let stick_x_distence =
-          (stick_top / (AlpData.sticky_data[i].parent_height - AlpData.sticky_data[i].height - (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top))) *
+          (stick_top /
+            (AlpData.sticky_data[i].parent_height - AlpData.sticky_data[i].height - (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top))) *
           (AlpData.sticky_data[i].width - AlpData.sticky_data[i].parent_width);
         if (stick_top <= 0 && stick_bottom >= AlpData.sticky_data[i].height) {
           AlpData.sticky_data[i].stick_y = stick_top;
           AlpData.sticky_data[i].stick_x = stick_x_distence;
-          AlpData.sticky_data[i].progress = stick_top / (AlpData.sticky_data[i].height - AlpData.sticky_data[i].parent_height + (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top));
+          AlpData.sticky_data[i].progress =
+            stick_top /
+            (AlpData.sticky_data[i].height - AlpData.sticky_data[i].parent_height + (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top));
           AlpData.sticky_data[i].elm.dataset.stickin = "1";
           AlpData.sticky_data[i].elm.dataset.stickout = "0";
           AlpData.sticky_data[i].elm.dataset.fixedlength = "0";
@@ -431,9 +434,11 @@ export const Alpscroll = class Alpscroll {
           AlpData.sticky_data[i].elm.dataset.stickin = "0";
           AlpData.sticky_data[i].elm.dataset.stickout = "0";
           AlpData.sticky_data[i].elm.dataset.fixedlength = "0";
-          AlpData.sticky_data[i].elm.dataset.pre_progress = (this.data.scroll_y + this.data.wrapper_height - AlpData.sticky_data[i].top) / this.data.wrapper_height;
+          AlpData.sticky_data[i].elm.dataset.pre_progress =
+            (this.data.scroll_y + this.data.wrapper_height - AlpData.sticky_data[i].top) / this.data.wrapper_height;
         } else {
-          AlpData.sticky_data[i].stick_y = AlpData.sticky_data[i].height - AlpData.sticky_data[i].parent_height + (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top);
+          AlpData.sticky_data[i].stick_y =
+            AlpData.sticky_data[i].height - AlpData.sticky_data[i].parent_height + (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top);
           AlpData.sticky_data[i].stick_x = AlpData.sticky_data[i].parent_width - AlpData.sticky_data[i].width;
           AlpData.sticky_data[i].progress = 1;
           AlpData.sticky_data[i].elm.dataset.stickout = "1";
@@ -445,11 +450,23 @@ export const Alpscroll = class Alpscroll {
       }
       // friction data
       AlpData.sticky_data[i].stick_y_friction =
-        Math.round((AlpData.sticky_data[i].stick_y_friction + (AlpData.sticky_data[i].stick_y - AlpData.sticky_data[i].stick_y_friction) * AlpData.sticky_data[i].friction_y) * 100) / 100;
+        Math.round(
+          (AlpData.sticky_data[i].stick_y_friction +
+            (AlpData.sticky_data[i].stick_y - AlpData.sticky_data[i].stick_y_friction) * AlpData.sticky_data[i].friction_y) *
+            100
+        ) / 100;
       AlpData.sticky_data[i].stick_x_friction =
-        Math.round((AlpData.sticky_data[i].stick_x_friction + (AlpData.sticky_data[i].stick_x - AlpData.sticky_data[i].stick_x_friction) * AlpData.sticky_data[i].friction_x) * 100) / 100;
+        Math.round(
+          (AlpData.sticky_data[i].stick_x_friction +
+            (AlpData.sticky_data[i].stick_x - AlpData.sticky_data[i].stick_x_friction) * AlpData.sticky_data[i].friction_x) *
+            100
+        ) / 100;
       AlpData.sticky_data[i].progress_friction =
-        Math.round((AlpData.sticky_data[i].progress_friction + (AlpData.sticky_data[i].progress - AlpData.sticky_data[i].progress_friction) * AlpData.sticky_data[i].friction_x) * 1000000) / 1000000;
+        Math.round(
+          (AlpData.sticky_data[i].progress_friction +
+            (AlpData.sticky_data[i].progress - AlpData.sticky_data[i].progress_friction) * AlpData.sticky_data[i].friction_x) *
+            1000000
+        ) / 1000000;
 
       // set data
       AlpData.sticky_data[i].elm.dataset.st_y = AlpData.sticky_data[i].stick_y;
@@ -740,9 +757,17 @@ export const Alpscroll = class Alpscroll {
       }
       // updata friction data
       AlpData.mouse_data[i].mouse_x_friction =
-        Math.round((AlpData.mouse_data[i].mouse_x_friction + (AlpData.mouse_data[i].mouse_x - AlpData.mouse_data[i].mouse_x_friction) * AlpData.mouse_data[i].friction_x) * 100) / 100;
+        Math.round(
+          (AlpData.mouse_data[i].mouse_x_friction +
+            (AlpData.mouse_data[i].mouse_x - AlpData.mouse_data[i].mouse_x_friction) * AlpData.mouse_data[i].friction_x) *
+            100
+        ) / 100;
       AlpData.mouse_data[i].mouse_y_friction =
-        Math.round((AlpData.mouse_data[i].mouse_y_friction + (AlpData.mouse_data[i].mouse_y - AlpData.mouse_data[i].mouse_y_friction) * AlpData.mouse_data[i].friction_y) * 100) / 100;
+        Math.round(
+          (AlpData.mouse_data[i].mouse_y_friction +
+            (AlpData.mouse_data[i].mouse_y - AlpData.mouse_data[i].mouse_y_friction) * AlpData.mouse_data[i].friction_y) *
+            100
+        ) / 100;
 
       AlpData.mouse_data[i].elm.dataset.mxx = Math.round(AlpData.mouse_data[i].mouse_x_friction * 100) / 100;
       AlpData.mouse_data[i].elm.dataset.myy = Math.round(AlpData.mouse_data[i].mouse_y_friction * 100) / 100;

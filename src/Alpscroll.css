@@ -22,3 +22,12 @@ html.lenis {
   top: 0;
   z-index: 10;
 }
+
+.alp-scroll-wrapper.lenis.lenis-smooth {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100%;
+  overflow: auto;
+}
