@@ -39,6 +39,28 @@
             </div>
           </div>
         </div>
+        <div class="scroll_overflow">
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+          <div>DomTest</div>
+        </div>
         <div>
           <div class="sticky-elm-wrapper">
             <div class="sticky-wrap-parent" css3-sticky>
@@ -115,7 +137,7 @@ const alp = new Alpscroll();
 
 onMounted(() => {
   // init(lerp, duration, infinite, smoothTouch, wrapper)
-  alp.init(0.1, 1, false, false, ".alp-scroll-container");
+  alp.init(0.1, 1, false, false, "html", window);
   // parallax(elm, limit, friction_y, friction_x)
   alp.parallax(".par-1", 0, 0.1, 0.1);
   alp.parallax(".par-2", 1, 0.1, 0.1);

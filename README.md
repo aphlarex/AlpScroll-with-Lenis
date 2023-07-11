@@ -44,8 +44,8 @@ Init
 
 ```js
 let alp = new Alpscroll();
-// init(lerp, duration, infinite, smoothTouch, wrapper)
-alp.init(0.1, 1, false, false, "body");
+// init(lerp, duration, infinite, smoothTouch, wrapper, wrapper_parent)
+alp.init(0.1, 1, false, false, "html", window);
 ```
 
 Parallax
@@ -145,7 +145,6 @@ window.addEventListener("load", () => {
 
 // vue use after onMounted
 onMounted(() => {});
-
 ```
 
 ## Some HTML Preset

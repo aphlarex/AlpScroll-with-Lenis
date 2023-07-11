@@ -171,3 +171,9 @@ body {
 .mouse-1.mos-1 {
   pointer-events: none;
 }
+
+.Scroll-element > div.scroll_overflow {
+  max-height: 280px;
+  overflow-y: auto;
+  min-height: 0px;
+}
