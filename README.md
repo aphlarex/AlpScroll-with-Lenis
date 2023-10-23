@@ -44,8 +44,8 @@ Init
 
 ```js
 let alp = new Alpscroll();
-// init(lerp, duration, infinite, smoothTouch, wrapper, wrapper_parent)
-alp.init(0.1, 1, false, false, "html", window);
+// init(lerp, duration, infinite, smoothWheel, wrapper, wrapper_parent,wheelEventsTarget)
+alp.init(0.1, 1, false, false, "html", window, window);
 ```
 
 Parallax
@@ -113,29 +113,52 @@ function rafAnimation() {
   // Parallax effect
   $(".parallax-el").each(function () {
     let $this = $(this);
-    $this.css("transform", `translate3d(0px, ${$this.attr("data-pl_y") * 0.3}px, 0px)`);
+    $this.css(
+      "transform",
+      `translate3d(0px, ${$this.attr("data-pl_y") * 0.3}px, 0px)`
+    );
   });
   // Sticky effect
   $(".sticky-el").each(function () {
     let $this = $(this);
-    $this.css("transform", `translate3d(${$this.attr("data-st_xm") * 1}px, 0px, 0px)`);
+    $this.css(
+      "transform",
+      `translate3d(${$this.attr("data-st_xm") * 1}px, 0px, 0px)`
+    );
   });
   // Sticky elm's Children Parallax effect
   $(".sticky-el .sticky-el-children").each(function () {
     let $this = $(this);
     let $parent = $this.parent();
-    $this.find("span").css("transform", `translate3d(${(parseFloat($this.attr("data-stc_x")) + parseFloat($parent.attr("data-st_xm"))) * 0.1}px, 0px, 0px)`);
+    $this
+      .find("span")
+      .css(
+        "transform",
+        `translate3d(${
+          (parseFloat($this.attr("data-stc_x")) +
+            parseFloat($parent.attr("data-st_xm"))) *
+          0.1
+        }px, 0px, 0px)`
+      );
   });
   // Sticky with Fixed style
   $(".sticky-el").each(function () {
     let $this = $(this);
     let $child = $this.children();
-    $child.css("transform", `translate3d(${$this.attr("data-st_xm") * 1}px, 0px, 0px)`);
+    $child.css(
+      "transform",
+      `translate3d(${$this.attr("data-st_xm") * 1}px, 0px, 0px)`
+    );
   });
   // Mouse effect
   $(".mouse-point").each(function () {
     let $this = $(this);
-    $this.css("transform", `translate3d(${$this.attr("data-mxx") * 1}px, ${$this.attr("data-myy") * 1}px, 0px)`);
+    $this.css(
+      "transform",
+      `translate3d(${$this.attr("data-mxx") * 1}px, ${
+        $this.attr("data-myy") * 1
+      }px, 0px)`
+    );
   });
 }
 
@@ -179,7 +202,11 @@ html.lenis {
   z-index: 10;
 }
 .sticky-element[fixed-sticky][data-stickout="1"] {
-  transform: translate3d(0, calc((var(--st_parent_height) - var(--st_height) - var(--st_top)) * 1px), 0);
+  transform: translate3d(
+    0,
+    calc((var(--st_parent_height) - var(--st_height) - var(--st_top)) * 1px),
+    0
+  );
 }
 .Alpscroll [css3-sticky] {
   position: sticky;

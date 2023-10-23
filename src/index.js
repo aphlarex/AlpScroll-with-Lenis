@@ -40,12 +40,20 @@ export const Alpscroll = class Alpscroll {
     this.animationUpdate = this.animationUpdate.bind(this);
     this.updateAnim = "";
   }
-  init(lerp, duration, infinite, smoothTouch, wrapper, wrapper_parent, wheelEventsTarget) {
+  init(
+    lerp,
+    duration,
+    infinite,
+    smoothWheel,
+    wrapper,
+    wrapper_parent,
+    wheelEventsTarget
+  ) {
     let Value = {
       lerp: lerp ? lerp : 0.1,
       duration: duration ? duration : 1.2,
       infinite: infinite ? infinite : false,
-      smoothTouch: smoothTouch ? smoothTouch : false,
+      smoothWheel: smoothWheel ? smoothWheel : false,
       wrapper: wrapper ? wrapper : "body",
       wrapper_parent: wrapper_parent ? wrapper_parent : window,
       wheelEventsTarget: wheelEventsTarget ? wheelEventsTarget : window,
@@ -70,8 +78,8 @@ export const Alpscroll = class Alpscroll {
       wrapper: this.data.Lenis_Wrapper_Parent,
       content: document.querySelector(this.data.wrapper),
       // wheelEventsTarget: this.data.wheelEventsTarget,
-      smoothWheel: true,
-      smoothTouch: Value.smoothTouch,
+      smoothWheel: Value.smoothWheel,
+      smoothTouch: false,
       touchMultiplier: 3,
       lerp: Value.lerp,
       duration: Value.duration,
@@ -83,11 +91,19 @@ export const Alpscroll = class Alpscroll {
   }
   // Get Size
   getSize() {
-    if (this.data.size_h != document.querySelector(this.data.wrapper).clientHeight || this.data.size_w != document.querySelector(this.data.wrapper).clientWidth) {
+    if (
+      this.data.size_h !=
+        document.querySelector(this.data.wrapper).clientHeight ||
+      this.data.size_w != document.querySelector(this.data.wrapper).clientWidth
+    ) {
       this.data.wrapper_height = this.data.Wrapper_Parent_EL.clientHeight;
       this.data.wrapper_width = this.data.Wrapper_Parent_EL.clientWidth;
-      this.data.scroll_height = document.querySelector(this.data.wrapper).clientHeight;
-      this.data.scroll_width = document.querySelector(this.data.wrapper).clientWidth;
+      this.data.scroll_height = document.querySelector(
+        this.data.wrapper
+      ).clientHeight;
+      this.data.scroll_width = document.querySelector(
+        this.data.wrapper
+      ).clientWidth;
       //
       this.data.size_h = this.data.scroll_height;
       this.data.size_w = this.data.scroll_width;
@@ -189,7 +205,9 @@ export const Alpscroll = class Alpscroll {
   }
   // 数组数据去重
   uniqueData(array) {
-    return Array.from(new Set(array.map((item) => JSON.stringify(item)))).map((item) => JSON.parse(item));
+    return Array.from(new Set(array.map((item) => JSON.stringify(item)))).map(
+      (item) => JSON.parse(item)
+    );
   }
   // 视差
   // palallax
@@ -243,23 +261,38 @@ export const Alpscroll = class Alpscroll {
   parallax_run() {
     for (let i = 0; i < AlpData.parallax_data.length; i++) {
       // y
-      let center_y_init = AlpData.parallax_data[i].top - this.data.wrapper_height / 2 + AlpData.parallax_data[i].height / 2 - this.data.scroll_y;
+      let center_y_init =
+        AlpData.parallax_data[i].top -
+        this.data.wrapper_height / 2 +
+        AlpData.parallax_data[i].height / 2 -
+        this.data.scroll_y;
       AlpData.parallax_data[i].center_y = center_y_init;
       // x
-      let center_x_init = AlpData.parallax_data[i].left - this.data.wrapper_width / 2 + AlpData.parallax_data[i].width / 2 - this.data.scroll_x;
+      let center_x_init =
+        AlpData.parallax_data[i].left -
+        this.data.wrapper_width / 2 +
+        AlpData.parallax_data[i].width / 2 -
+        this.data.scroll_x;
       AlpData.parallax_data[i].center_x = center_x_init;
       // set value
       let center_y = 0;
       let center_x = 0;
       // 范围内生效
-      let lenght_y_bottom = this.data.wrapper_height + AlpData.parallax_data[i].height * 1;
-      let lenght_y_top = (this.data.wrapper_height + AlpData.parallax_data[i].height * 1) * -1;
-      let lenght_x_right = this.data.wrapper_width + AlpData.parallax_data[i].width;
-      let lenght_x_left = (this.data.wrapper_width + AlpData.parallax_data[i].width) * -1;
+      let lenght_y_bottom =
+        this.data.wrapper_height + AlpData.parallax_data[i].height * 1;
+      let lenght_y_top =
+        (this.data.wrapper_height + AlpData.parallax_data[i].height * 1) * -1;
+      let lenght_x_right =
+        this.data.wrapper_width + AlpData.parallax_data[i].width;
+      let lenght_x_left =
+        (this.data.wrapper_width + AlpData.parallax_data[i].width) * -1;
 
       // 无限制移动
       if (AlpData.parallax_data[i].limit == 0) {
-        if (AlpData.parallax_data[i].center_y < lenght_y_bottom && AlpData.parallax_data[i].center_y > lenght_y_top) {
+        if (
+          AlpData.parallax_data[i].center_y < lenght_y_bottom &&
+          AlpData.parallax_data[i].center_y > lenght_y_top
+        ) {
           center_y = AlpData.parallax_data[i].center_y;
         } else if (AlpData.parallax_data[i].center_y > lenght_y_bottom) {
           center_y = lenght_y_bottom;
@@ -267,7 +300,10 @@ export const Alpscroll = class Alpscroll {
           center_y = lenght_y_top;
         }
 
-        if (AlpData.parallax_data[i].center_x < lenght_x_right && AlpData.parallax_data[i].center_x > lenght_x_left) {
+        if (
+          AlpData.parallax_data[i].center_x < lenght_x_right &&
+          AlpData.parallax_data[i].center_x > lenght_x_left
+        ) {
           center_x = AlpData.parallax_data[i].center_x;
         } else if (AlpData.parallax_data[i].center_x > lenght_x_right) {
           center_x = lenght_x_right;
@@ -278,7 +314,10 @@ export const Alpscroll = class Alpscroll {
       //
       // 限制从底到中心
       else if (AlpData.parallax_data[i].limit == 1) {
-        if (AlpData.parallax_data[i].center_y > 0 && AlpData.parallax_data[i].center_y < lenght_y_bottom) {
+        if (
+          AlpData.parallax_data[i].center_y > 0 &&
+          AlpData.parallax_data[i].center_y < lenght_y_bottom
+        ) {
           center_y = AlpData.parallax_data[i].center_y;
         } else {
           center_y = 0;
@@ -291,7 +330,10 @@ export const Alpscroll = class Alpscroll {
       }
       // 限制从中心到顶
       else if (AlpData.parallax_data[i].limit == 2) {
-        if (AlpData.parallax_data[i].center_y < 0 && AlpData.parallax_data[i].center_y > lenght_y_top) {
+        if (
+          AlpData.parallax_data[i].center_y < 0 &&
+          AlpData.parallax_data[i].center_y > lenght_y_top
+        ) {
           center_y = AlpData.parallax_data[i].center_y;
         } else {
           center_y = 0;
@@ -304,20 +346,38 @@ export const Alpscroll = class Alpscroll {
       }
       // 缓动计算
       AlpData.parallax_data[i].center_y_friction =
-        Math.round((AlpData.parallax_data[i].center_y_friction + (center_y - AlpData.parallax_data[i].center_y_friction) * AlpData.parallax_data[i].friction_y) * 100) / 100;
+        Math.round(
+          (AlpData.parallax_data[i].center_y_friction +
+            (center_y - AlpData.parallax_data[i].center_y_friction) *
+              AlpData.parallax_data[i].friction_y) *
+            100
+        ) / 100;
       AlpData.parallax_data[i].center_x_friction =
-        Math.round((AlpData.parallax_data[i].center_x_friction + (center_x - AlpData.parallax_data[i].center_x_friction) * AlpData.parallax_data[i].friction_x) * 100) / 100;
+        Math.round(
+          (AlpData.parallax_data[i].center_x_friction +
+            (center_x - AlpData.parallax_data[i].center_x_friction) *
+              AlpData.parallax_data[i].friction_x) *
+            100
+        ) / 100;
 
       let progerss_y = 1 - center_y / (this.data.wrapper_height / 2);
       let progerss_x = 1 - center_x / (this.data.wrapper_width / 2);
-      let progerss_yf = 1 - AlpData.parallax_data[i].center_y_friction / (this.data.wrapper_height / 2);
-      let progerss_xf = 1 - AlpData.parallax_data[i].center_x_friction / (this.data.wrapper_width / 2);
+      let progerss_yf =
+        1 -
+        AlpData.parallax_data[i].center_y_friction /
+          (this.data.wrapper_height / 2);
+      let progerss_xf =
+        1 -
+        AlpData.parallax_data[i].center_x_friction /
+          (this.data.wrapper_width / 2);
 
       // 设置元素data值
       AlpData.parallax_data[i].elm.dataset.pl_y = center_y;
-      AlpData.parallax_data[i].elm.dataset.pl_ym = AlpData.parallax_data[i].center_y_friction;
+      AlpData.parallax_data[i].elm.dataset.pl_ym =
+        AlpData.parallax_data[i].center_y_friction;
       AlpData.parallax_data[i].elm.dataset.pl_x = center_x;
-      AlpData.parallax_data[i].elm.dataset.pl_xm = AlpData.parallax_data[i].center_x_friction;
+      AlpData.parallax_data[i].elm.dataset.pl_xm =
+        AlpData.parallax_data[i].center_x_friction;
       AlpData.parallax_data[i].elm.dataset.pl_pg_y = progerss_y;
       AlpData.parallax_data[i].elm.dataset.pl_pg_ym = progerss_yf;
       AlpData.parallax_data[i].elm.dataset.pl_pg_x = progerss_x;
@@ -326,13 +386,20 @@ export const Alpscroll = class Alpscroll {
   }
   parallax_data_update() {
     for (let i = 0; i < AlpData.parallax_data.length; i++) {
-      AlpData.parallax_data[i].top = this.getElementTop(AlpData.parallax_data[i].elm);
-      AlpData.parallax_data[i].left = this.getElementLeft(AlpData.parallax_data[i].elm);
-      AlpData.parallax_data[i].height = AlpData.parallax_data[i].elm.clientHeight;
+      AlpData.parallax_data[i].top = this.getElementTop(
+        AlpData.parallax_data[i].elm
+      );
+      AlpData.parallax_data[i].left = this.getElementLeft(
+        AlpData.parallax_data[i].elm
+      );
+      AlpData.parallax_data[i].height =
+        AlpData.parallax_data[i].elm.clientHeight;
       AlpData.parallax_data[i].width = AlpData.parallax_data[i].elm.clientWidth;
       //
-      AlpData.parallax_data[i].elm.dataset.of_top = AlpData.parallax_data[i].top;
-      AlpData.parallax_data[i].elm.dataset.of_left = AlpData.parallax_data[i].left;
+      AlpData.parallax_data[i].elm.dataset.of_top =
+        AlpData.parallax_data[i].top;
+      AlpData.parallax_data[i].elm.dataset.of_left =
+        AlpData.parallax_data[i].left;
     }
   }
   // 固定
@@ -385,8 +452,12 @@ export const Alpscroll = class Alpscroll {
       let parent_offset_top = this.getElementTop(the_elms[i].parentElement);
       let parent_offset_left = this.getElementLeft(the_elms[i].parentElement);
       if (elms.parent_elm) {
-        parent_offset_top = this.getElementTop(the_elms[i].closest(elms.parent_elm));
-        parent_offset_left = this.getElementLeft(the_elms[i].closest(elms.parent_elm));
+        parent_offset_top = this.getElementTop(
+          the_elms[i].closest(elms.parent_elm)
+        );
+        parent_offset_left = this.getElementLeft(
+          the_elms[i].closest(elms.parent_elm)
+        );
       }
 
       the_elms[i].dataset.of_top = offset_top;
@@ -428,21 +499,33 @@ export const Alpscroll = class Alpscroll {
       // no-limit
       if (AlpData.sticky_data[i].limit == 0) {
         // update data
-        AlpData.sticky_data[i].progress = this.data.scroll_y / (this.data.scroll_height - this.data.wrapper_height);
+        AlpData.sticky_data[i].progress =
+          this.data.scroll_y /
+          (this.data.scroll_height - this.data.wrapper_height);
         AlpData.sticky_data[i].stick_y = this.data.scroll_y;
       }
       // limit-in-container
       else if (AlpData.sticky_data[i].limit == 1) {
         let stick_top = AlpData.sticky_data[i].top - this.data.scroll_y;
-        let stick_bottom = AlpData.sticky_data[i].parent_top + AlpData.sticky_data[i].parent_height - this.data.scroll_y;
+        let stick_bottom =
+          AlpData.sticky_data[i].parent_top +
+          AlpData.sticky_data[i].parent_height -
+          this.data.scroll_y;
         let stick_x_distence =
-          (stick_top / (AlpData.sticky_data[i].parent_height - AlpData.sticky_data[i].height - (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top))) *
+          (stick_top /
+            (AlpData.sticky_data[i].parent_height -
+              AlpData.sticky_data[i].height -
+              (AlpData.sticky_data[i].top -
+                AlpData.sticky_data[i].parent_top))) *
           (AlpData.sticky_data[i].width - AlpData.sticky_data[i].parent_width);
         if (stick_top <= 0 && stick_bottom >= AlpData.sticky_data[i].height) {
           AlpData.sticky_data[i].stick_y = stick_top;
           AlpData.sticky_data[i].stick_x = stick_x_distence;
           AlpData.sticky_data[i].progress =
-            stick_top / (AlpData.sticky_data[i].height - AlpData.sticky_data[i].parent_height + (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top));
+            stick_top /
+            (AlpData.sticky_data[i].height -
+              AlpData.sticky_data[i].parent_height +
+              (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top));
           AlpData.sticky_data[i].elm.dataset.stickin = "1";
           AlpData.sticky_data[i].elm.dataset.stickout = "0";
           AlpData.sticky_data[i].elm.dataset.fixedlength = "0";
@@ -455,66 +538,118 @@ export const Alpscroll = class Alpscroll {
           AlpData.sticky_data[i].elm.dataset.stickin = "0";
           AlpData.sticky_data[i].elm.dataset.stickout = "0";
           AlpData.sticky_data[i].elm.dataset.fixedlength = "0";
-          AlpData.sticky_data[i].elm.dataset.pre_progress = (this.data.scroll_y + this.data.wrapper_height - AlpData.sticky_data[i].top) / this.data.wrapper_height;
+          AlpData.sticky_data[i].elm.dataset.pre_progress =
+            (this.data.scroll_y +
+              this.data.wrapper_height -
+              AlpData.sticky_data[i].top) /
+            this.data.wrapper_height;
         } else {
-          AlpData.sticky_data[i].stick_y = AlpData.sticky_data[i].height - AlpData.sticky_data[i].parent_height + (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top);
-          AlpData.sticky_data[i].stick_x = AlpData.sticky_data[i].parent_width - AlpData.sticky_data[i].width;
+          AlpData.sticky_data[i].stick_y =
+            AlpData.sticky_data[i].height -
+            AlpData.sticky_data[i].parent_height +
+            (AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_top);
+          AlpData.sticky_data[i].stick_x =
+            AlpData.sticky_data[i].parent_width - AlpData.sticky_data[i].width;
           AlpData.sticky_data[i].progress = 1;
           AlpData.sticky_data[i].elm.dataset.stickout = "1";
           AlpData.sticky_data[i].elm.dataset.stickin = "0";
-          AlpData.sticky_data[i].elm.dataset.fixedlength = AlpData.sticky_data[i].stick_y;
+          AlpData.sticky_data[i].elm.dataset.fixedlength =
+            AlpData.sticky_data[i].stick_y;
           AlpData.sticky_data[i].elm.dataset.after_progress =
-            (this.data.scroll_y - AlpData.sticky_data[i].top - AlpData.sticky_data[i].parent_height + AlpData.sticky_data[i].height) / this.data.wrapper_height;
+            (this.data.scroll_y -
+              AlpData.sticky_data[i].top -
+              AlpData.sticky_data[i].parent_height +
+              AlpData.sticky_data[i].height) /
+            this.data.wrapper_height;
         }
       }
       // friction data
       AlpData.sticky_data[i].stick_y_friction =
         Math.round(
-          (AlpData.sticky_data[i].stick_y_friction + (AlpData.sticky_data[i].stick_y - AlpData.sticky_data[i].stick_y_friction) * AlpData.sticky_data[i].friction_y) * 100
+          (AlpData.sticky_data[i].stick_y_friction +
+            (AlpData.sticky_data[i].stick_y -
+              AlpData.sticky_data[i].stick_y_friction) *
+              AlpData.sticky_data[i].friction_y) *
+            100
         ) / 100;
       AlpData.sticky_data[i].stick_x_friction =
         Math.round(
-          (AlpData.sticky_data[i].stick_x_friction + (AlpData.sticky_data[i].stick_x - AlpData.sticky_data[i].stick_x_friction) * AlpData.sticky_data[i].friction_x) * 100
+          (AlpData.sticky_data[i].stick_x_friction +
+            (AlpData.sticky_data[i].stick_x -
+              AlpData.sticky_data[i].stick_x_friction) *
+              AlpData.sticky_data[i].friction_x) *
+            100
         ) / 100;
       AlpData.sticky_data[i].progress_friction =
         Math.round(
-          (AlpData.sticky_data[i].progress_friction + (AlpData.sticky_data[i].progress - AlpData.sticky_data[i].progress_friction) * AlpData.sticky_data[i].friction_x) * 1000000
+          (AlpData.sticky_data[i].progress_friction +
+            (AlpData.sticky_data[i].progress -
+              AlpData.sticky_data[i].progress_friction) *
+              AlpData.sticky_data[i].friction_x) *
+            1000000
         ) / 1000000;
 
       // set data
       AlpData.sticky_data[i].elm.dataset.st_y = AlpData.sticky_data[i].stick_y;
-      AlpData.sticky_data[i].elm.dataset.st_ym = AlpData.sticky_data[i].stick_y_friction;
+      AlpData.sticky_data[i].elm.dataset.st_ym =
+        AlpData.sticky_data[i].stick_y_friction;
       AlpData.sticky_data[i].elm.dataset.st_x = AlpData.sticky_data[i].stick_x;
-      AlpData.sticky_data[i].elm.dataset.st_xm = AlpData.sticky_data[i].stick_x_friction;
-      AlpData.sticky_data[i].elm.dataset.st_pg = AlpData.sticky_data[i].progress;
-      AlpData.sticky_data[i].elm.dataset.st_pgm = AlpData.sticky_data[i].progress_friction;
+      AlpData.sticky_data[i].elm.dataset.st_xm =
+        AlpData.sticky_data[i].stick_x_friction;
+      AlpData.sticky_data[i].elm.dataset.st_pg =
+        AlpData.sticky_data[i].progress;
+      AlpData.sticky_data[i].elm.dataset.st_pgm =
+        AlpData.sticky_data[i].progress_friction;
     }
   }
   sticky_data_update() {
     for (let i = 0; i < AlpData.sticky_data.length; i++) {
       // let style = window.getComputedStyle(AlpData.sticky_data[i].elm);
       // let position = style.getPropertyValue("position");
-      let sticky_class = AlpData.sticky_data[i].elm.classList.contains("sticky");
+      let sticky_class =
+        AlpData.sticky_data[i].elm.classList.contains("sticky");
       if (sticky_class) {
-        AlpData.sticky_data[i].top = this.getElementTop(AlpData.sticky_data[i].elm.parentElement);
-        AlpData.sticky_data[i].left = this.getElementLeft(AlpData.sticky_data[i].elm.parentElement);
+        AlpData.sticky_data[i].top = this.getElementTop(
+          AlpData.sticky_data[i].elm.parentElement
+        );
+        AlpData.sticky_data[i].left = this.getElementLeft(
+          AlpData.sticky_data[i].elm.parentElement
+        );
       } else {
-        AlpData.sticky_data[i].top = this.getElementTop(AlpData.sticky_data[i].elm);
-        AlpData.sticky_data[i].left = this.getElementLeft(AlpData.sticky_data[i].elm);
+        AlpData.sticky_data[i].top = this.getElementTop(
+          AlpData.sticky_data[i].elm
+        );
+        AlpData.sticky_data[i].left = this.getElementLeft(
+          AlpData.sticky_data[i].elm
+        );
       }
-      AlpData.sticky_data[i].parent_top = this.getElementTop(AlpData.sticky_data[i].elm.parentElement);
-      AlpData.sticky_data[i].parent_left = this.getElementLeft(AlpData.sticky_data[i].elm.parentElement);
+      AlpData.sticky_data[i].parent_top = this.getElementTop(
+        AlpData.sticky_data[i].elm.parentElement
+      );
+      AlpData.sticky_data[i].parent_left = this.getElementLeft(
+        AlpData.sticky_data[i].elm.parentElement
+      );
       AlpData.sticky_data[i].width = AlpData.sticky_data[i].elm.clientWidth;
-      AlpData.sticky_data[i].parent_width = AlpData.sticky_data[i].elm.parentElement.clientWidth;
+      AlpData.sticky_data[i].parent_width =
+        AlpData.sticky_data[i].elm.parentElement.clientWidth;
       AlpData.sticky_data[i].height = AlpData.sticky_data[i].elm.clientHeight;
-      AlpData.sticky_data[i].parent_height = AlpData.sticky_data[i].elm.parentElement.clientHeight;
+      AlpData.sticky_data[i].parent_height =
+        AlpData.sticky_data[i].elm.parentElement.clientHeight;
       AlpData.sticky_data[i].elm.dataset.of_top = AlpData.sticky_data[i].top;
       AlpData.sticky_data[i].elm.dataset.of_left = AlpData.sticky_data[i].left;
       if (AlpData.sticky_data[i].parent_elm) {
-        AlpData.sticky_data[i].parent_top = this.getElementTop(AlpData.sticky_data[i].elm.closest(AlpData.sticky_data[i].parent_elm));
-        AlpData.sticky_data[i].parent_left = this.getElementLeft(AlpData.sticky_data[i].elm.closest(AlpData.sticky_data[i].parent_elm));
-        AlpData.sticky_data[i].parent_width = AlpData.sticky_data[i].elm.closest(AlpData.sticky_data[i].parent_elm).clientWidth;
-        AlpData.sticky_data[i].parent_height = AlpData.sticky_data[i].elm.closest(AlpData.sticky_data[i].parent_elm).clientHeight;
+        AlpData.sticky_data[i].parent_top = this.getElementTop(
+          AlpData.sticky_data[i].elm.closest(AlpData.sticky_data[i].parent_elm)
+        );
+        AlpData.sticky_data[i].parent_left = this.getElementLeft(
+          AlpData.sticky_data[i].elm.closest(AlpData.sticky_data[i].parent_elm)
+        );
+        AlpData.sticky_data[i].parent_width = AlpData.sticky_data[
+          i
+        ].elm.closest(AlpData.sticky_data[i].parent_elm).clientWidth;
+        AlpData.sticky_data[i].parent_height = AlpData.sticky_data[
+          i
+        ].elm.closest(AlpData.sticky_data[i].parent_elm).clientHeight;
       }
     }
   }
@@ -572,8 +707,16 @@ export const Alpscroll = class Alpscroll {
   }
   sticky_child_run() {
     for (let i = 0; i < AlpData.sticky_child_data.length; i++) {
-      let center_y_init = AlpData.sticky_child_data[i].top - this.data.wrapper_height / 2 + AlpData.sticky_child_data[i].height / 2 - this.data.scroll_y;
-      let center_x_init = AlpData.sticky_child_data[i].left - this.data.wrapper_width / 2 + AlpData.sticky_child_data[i].width / 2 - this.data.scroll_x;
+      let center_y_init =
+        AlpData.sticky_child_data[i].top -
+        this.data.wrapper_height / 2 +
+        AlpData.sticky_child_data[i].height / 2 -
+        this.data.scroll_y;
+      let center_x_init =
+        AlpData.sticky_child_data[i].left -
+        this.data.wrapper_width / 2 +
+        AlpData.sticky_child_data[i].width / 2 -
+        this.data.scroll_x;
       AlpData.sticky_child_data[i].center_x = center_x_init;
       AlpData.sticky_child_data[i].center_y = center_y_init;
       // set data
@@ -583,17 +726,31 @@ export const Alpscroll = class Alpscroll {
   }
   sticky_child_data_update() {
     for (let i = 0; i < AlpData.sticky_child_data.length; i++) {
-      AlpData.sticky_child_data[i].top = this.getElementTop(AlpData.sticky_child_data[i].elm);
-      AlpData.sticky_child_data[i].parent_top = this.getElementTop(AlpData.sticky_child_data[i].elm.parentElement);
-      AlpData.sticky_child_data[i].left = this.getElementLeft(AlpData.sticky_child_data[i].elm);
-      AlpData.sticky_child_data[i].parent_left = this.getElementLeft(AlpData.sticky_child_data[i].elm.parentElement);
-      AlpData.sticky_child_data[i].height = AlpData.sticky_child_data[i].elm.clientHeight;
-      AlpData.sticky_child_data[i].width = AlpData.sticky_child_data[i].elm.clientWidth;
+      AlpData.sticky_child_data[i].top = this.getElementTop(
+        AlpData.sticky_child_data[i].elm
+      );
+      AlpData.sticky_child_data[i].parent_top = this.getElementTop(
+        AlpData.sticky_child_data[i].elm.parentElement
+      );
+      AlpData.sticky_child_data[i].left = this.getElementLeft(
+        AlpData.sticky_child_data[i].elm
+      );
+      AlpData.sticky_child_data[i].parent_left = this.getElementLeft(
+        AlpData.sticky_child_data[i].elm.parentElement
+      );
+      AlpData.sticky_child_data[i].height =
+        AlpData.sticky_child_data[i].elm.clientHeight;
+      AlpData.sticky_child_data[i].width =
+        AlpData.sticky_child_data[i].elm.clientWidth;
       //
-      AlpData.sticky_child_data[i].elm.dataset.of_top = AlpData.sticky_child_data[i].top;
-      AlpData.sticky_child_data[i].elm.dataset.of_parent_top = AlpData.sticky_child_data[i].parent_top;
-      AlpData.sticky_child_data[i].elm.dataset.of_left = AlpData.sticky_child_data[i].left;
-      AlpData.sticky_child_data[i].elm.dataset.of_parent_left = AlpData.sticky_child_data[i].parent_left;
+      AlpData.sticky_child_data[i].elm.dataset.of_top =
+        AlpData.sticky_child_data[i].top;
+      AlpData.sticky_child_data[i].elm.dataset.of_parent_top =
+        AlpData.sticky_child_data[i].parent_top;
+      AlpData.sticky_child_data[i].elm.dataset.of_left =
+        AlpData.sticky_child_data[i].left;
+      AlpData.sticky_child_data[i].elm.dataset.of_parent_left =
+        AlpData.sticky_child_data[i].parent_left;
     }
   }
 
@@ -644,14 +801,24 @@ export const Alpscroll = class Alpscroll {
   reach_run() {
     for (let i = 0; i < AlpData.reach_data.length; i++) {
       // y
-      let center_y_init = AlpData.reach_data[i].top - this.data.wrapper_height / 2 - this.data.scroll_y;
+      let center_y_init =
+        AlpData.reach_data[i].top -
+        this.data.wrapper_height / 2 -
+        this.data.scroll_y;
       AlpData.reach_data[i].center_y = center_y_init;
       // x
-      let center_x_init = AlpData.reach_data[i].left - this.data.wrapper_width / 2 - this.data.scroll_x;
+      let center_x_init =
+        AlpData.reach_data[i].left -
+        this.data.wrapper_width / 2 -
+        this.data.scroll_x;
       AlpData.reach_data[i].center_x = center_x_init;
 
-      let reach_y = center_y_init - AlpData.reach_data[i].offset_y * (this.data.wrapper_height / 2);
-      let reach_x = center_x_init - AlpData.reach_data[i].offset_x * (this.data.wrapper_width / 2);
+      let reach_y =
+        center_y_init -
+        AlpData.reach_data[i].offset_y * (this.data.wrapper_height / 2);
+      let reach_x =
+        center_x_init -
+        AlpData.reach_data[i].offset_x * (this.data.wrapper_width / 2);
 
       if (reach_y < 0) {
         AlpData.reach_data[i].elm.dataset.active_y = 1;
@@ -668,7 +835,9 @@ export const Alpscroll = class Alpscroll {
   reach_data_update() {
     for (let i = 0; i < AlpData.reach_data.length; i++) {
       AlpData.reach_data[i].top = this.getElementTop(AlpData.reach_data[i].elm);
-      AlpData.reach_data[i].left = this.getElementLeft(AlpData.reach_data[i].elm);
+      AlpData.reach_data[i].left = this.getElementLeft(
+        AlpData.reach_data[i].elm
+      );
       AlpData.reach_data[i].height = AlpData.reach_data[i].elm.clientHeight;
       AlpData.reach_data[i].width = AlpData.reach_data[i].elm.clientWidth;
       //
@@ -736,8 +905,12 @@ export const Alpscroll = class Alpscroll {
   }
   mouse_run() {
     for (let i = 0; i < AlpData.mouse_data.length; i++) {
-      let center_x = this.data.page_x - (AlpData.mouse_data[i].left + AlpData.mouse_data[i].width / 2);
-      let center_y = this.data.page_y - (AlpData.mouse_data[i].top + AlpData.mouse_data[i].height / 2);
+      let center_x =
+        this.data.page_x -
+        (AlpData.mouse_data[i].left + AlpData.mouse_data[i].width / 2);
+      let center_y =
+        this.data.page_y -
+        (AlpData.mouse_data[i].top + AlpData.mouse_data[i].height / 2);
       if (AlpData.mouse_data[i].outside == 0) {
         center_x = center_x + this.data.scroll_x;
         center_y = center_y + this.data.scroll_y;
@@ -749,7 +922,10 @@ export const Alpscroll = class Alpscroll {
       }
       // limit = 1
       else if (AlpData.mouse_data[i].limit == 1) {
-        if (Math.abs(center_x) < AlpData.mouse_data[i].parent_width / 2 && Math.abs(center_y) < AlpData.mouse_data[i].parent_height / 2) {
+        if (
+          Math.abs(center_x) < AlpData.mouse_data[i].parent_width / 2 &&
+          Math.abs(center_y) < AlpData.mouse_data[i].parent_height / 2
+        ) {
           AlpData.mouse_data[i].mouse_x = center_x;
           AlpData.mouse_data[i].mouse_y = center_y;
         } else {
@@ -770,26 +946,46 @@ export const Alpscroll = class Alpscroll {
       }
       // updata friction data
       AlpData.mouse_data[i].mouse_x_friction =
-        Math.round((AlpData.mouse_data[i].mouse_x_friction + (AlpData.mouse_data[i].mouse_x - AlpData.mouse_data[i].mouse_x_friction) * AlpData.mouse_data[i].friction_x) * 100) /
-        100;
+        Math.round(
+          (AlpData.mouse_data[i].mouse_x_friction +
+            (AlpData.mouse_data[i].mouse_x -
+              AlpData.mouse_data[i].mouse_x_friction) *
+              AlpData.mouse_data[i].friction_x) *
+            100
+        ) / 100;
       AlpData.mouse_data[i].mouse_y_friction =
-        Math.round((AlpData.mouse_data[i].mouse_y_friction + (AlpData.mouse_data[i].mouse_y - AlpData.mouse_data[i].mouse_y_friction) * AlpData.mouse_data[i].friction_y) * 100) /
-        100;
+        Math.round(
+          (AlpData.mouse_data[i].mouse_y_friction +
+            (AlpData.mouse_data[i].mouse_y -
+              AlpData.mouse_data[i].mouse_y_friction) *
+              AlpData.mouse_data[i].friction_y) *
+            100
+        ) / 100;
 
-      AlpData.mouse_data[i].elm.dataset.mxx = Math.round(AlpData.mouse_data[i].mouse_x_friction * 100) / 100;
-      AlpData.mouse_data[i].elm.dataset.myy = Math.round(AlpData.mouse_data[i].mouse_y_friction * 100) / 100;
+      AlpData.mouse_data[i].elm.dataset.mxx =
+        Math.round(AlpData.mouse_data[i].mouse_x_friction * 100) / 100;
+      AlpData.mouse_data[i].elm.dataset.myy =
+        Math.round(AlpData.mouse_data[i].mouse_y_friction * 100) / 100;
     }
   }
   mouse_data_update() {
     for (let i = 0; i < AlpData.mouse_data.length; i++) {
       AlpData.mouse_data[i].top = this.getElementTop(AlpData.mouse_data[i].elm);
-      AlpData.mouse_data[i].parent_top = this.getElementTop(AlpData.mouse_data[i].elm.parentElement);
-      AlpData.mouse_data[i].left = this.getElementLeft(AlpData.mouse_data[i].elm);
-      AlpData.mouse_data[i].parent_left = this.getElementLeft(AlpData.mouse_data[i].elm.parentElement);
+      AlpData.mouse_data[i].parent_top = this.getElementTop(
+        AlpData.mouse_data[i].elm.parentElement
+      );
+      AlpData.mouse_data[i].left = this.getElementLeft(
+        AlpData.mouse_data[i].elm
+      );
+      AlpData.mouse_data[i].parent_left = this.getElementLeft(
+        AlpData.mouse_data[i].elm.parentElement
+      );
       AlpData.mouse_data[i].width = AlpData.mouse_data[i].elm.clientWidth;
-      AlpData.mouse_data[i].parent_width = AlpData.mouse_data[i].elm.parentElement.clientWidth;
+      AlpData.mouse_data[i].parent_width =
+        AlpData.mouse_data[i].elm.parentElement.clientWidth;
       AlpData.mouse_data[i].height = AlpData.mouse_data[i].elm.clientHeight;
-      AlpData.mouse_data[i].parent_height = AlpData.mouse_data[i].elm.parentElement.clientHeight;
+      AlpData.mouse_data[i].parent_height =
+        AlpData.mouse_data[i].elm.parentElement.clientHeight;
     }
   }
 };
